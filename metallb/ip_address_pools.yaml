@@ -1,0 +1,30 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: production
+  namespace: metallb-system
+spec:
+  # This is the IP returned from "What is my IP". As in, your public IP address.
+  addresses:
+    - 97.113.249.148/32
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: sandbox
+  namespace: metallb-system
+spec:
+  addresses:
+    # On the other hand, the sandbox environment uses private IP space,
+    # which is free and plentiful. We assign a chunk of class C address space.
+    - 10.0.0.0/20
+---
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  name: external
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - production
+    - sandbox
