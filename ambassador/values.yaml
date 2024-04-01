@@ -1,0 +1,9 @@
+
+# This is the default configuration for Ambassador
+#dnsPolicy: "ClusterFirst"
+#hostNetwork: false
+
+# Override the default configuration for bare metal or local clusters
+replicaCount: 1
+hostNetwork: true
+dnsPolicy: "ClusterFirstWithHostNet"
