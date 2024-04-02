@@ -1,3 +1,4 @@
+---
 apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
@@ -6,3 +7,4 @@ spec:
   hostname: "*"
   prefix: /backend/quote
   service: quote
+  tls: istio-upstream
