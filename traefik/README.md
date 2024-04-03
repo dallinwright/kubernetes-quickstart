@@ -1,0 +1,1 @@
+http://traefik.localhost:9000/dashboard#/

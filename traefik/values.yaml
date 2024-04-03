@@ -1,0 +1,23 @@
+service:
+  enabled: true
+  ## -- Single service is using `MixedProtocolLBService` feature gate.
+  ## -- When set to false, it will create two Service, one for TCP and one for UDP.
+  single: true
+  type: LoadBalancer
+  # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
+  annotations:
+    metallb.universe.tf/address-pool: production
+
+additionalArguments:
+- "--api.insecure=true"
+
+ingressRoute:
+  dashboard:
+    enabled: true
+    # Custom match rule with host domain
+    matchRule: Host(`localhost`)
+    entryPoints: ["web"]
+
+ports:
+  traefik:
+    expose: true
