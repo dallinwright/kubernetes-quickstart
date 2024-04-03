@@ -1,1 +1,1 @@
-http://traefik.localhost:9000/dashboard#/
+http://localhost:9000/dashboard#/
