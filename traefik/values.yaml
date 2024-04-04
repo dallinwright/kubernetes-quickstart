@@ -17,7 +17,8 @@ ingressRoute:
 
 ports:
   traefik:
-    expose: true
+    expose:
+      default: true
 
 deployment:
   dnsPolicy: ClusterFirstWithHostNet
