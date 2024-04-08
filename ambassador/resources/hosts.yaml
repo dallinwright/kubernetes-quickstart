@@ -1,8 +1,0 @@
-apiVersion: getambassador.io/v3alpha1
-kind: Host
-metadata:
-  name: host
-spec:
-  hostname: "*"
-  tlsSecret:
-    name: istio-certs

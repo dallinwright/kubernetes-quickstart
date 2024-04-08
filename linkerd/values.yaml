@@ -1,0 +1,6 @@
+identity:
+  issuer:
+    scheme: kubernetes.io/tls
+
+proxyInit:
+  runAsRoot: true

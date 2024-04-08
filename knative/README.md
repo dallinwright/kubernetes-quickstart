@@ -6,32 +6,20 @@ Knative is a Kubernetes-based platform to build, deploy, and manage modern serve
 
 Unfortunately however it does not provide a helm chart for installation, so we will use the official installation guide and the production ready operator tool to install.
 
-## Installation
+## Prerequisites
 
 Current installation instructions are here on the office site: [Knative Installation](https://knative.dev/docs/install/)
 
 Note that the installation forcefully sets the namespace to `default` thus ignoring user attempts to isolate/override it.
 
 
+### Install Istio
 
+### Install operator
+kubectl apply -f https://github.com/knative/operator/releases/download/knative-v1.13.3/operator.yaml
 
+### Install Knative Serving
 
-
-##### note scratchpad
-Synchronous flow
-
-user sends curl to broker via HTTP
-broker sends to trigger
-trigger sends to service pod
-pod sends response to broker
-broker sends response to frontend
-
-Currently thinking response from 
-
-server(graphene(GraphQL) -> flask) -> broker -> client
-
-Note:
-Flask needs response header decoration, to recognize it as cloud event
-such as ce-id, ce-source, etc.
-
-
+```bash
+kubectl apply -f knative/serving.yaml
+```

@@ -2,8 +2,8 @@
 apiVersion: getambassador.io/v3alpha1
 kind: Listener
 metadata:
-  name: edge-stack-listener-8080
-  namespace: ambassador
+  name: emissary-ingress-listener-8080
+  namespace: emissary
 spec:
   port: 8080
   protocol: HTTP
@@ -15,8 +15,8 @@ spec:
 apiVersion: getambassador.io/v3alpha1
 kind: Listener
 metadata:
-  name: edge-stack-listener-8443
-  namespace: ambassador
+  name: emissary-ingress-listener-8443
+  namespace: emissary
 spec:
   port: 8443
   protocol: HTTPS

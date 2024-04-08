@@ -20,13 +20,12 @@ All these tools will provide you the baseline required to interact with your clu
 ## Steps
 
 
-
 For access into your cluster from outside, for example to call an API for your service, you need to set up an Ingress
 Controller.
 We will use [Ambassador](https://www.getambassador.io/) as it uniquely provides development capabilities not found in
 other ingress controllers along with a generous open source feature offering.
 
-[Cluster Ingress Setup](./ambassador/README.md)
+[Cluster Ingress Setup](emissary-ingress/README.md)
 
 For certificate management of various resources inside the cluster, for example to enable HTTPS for your service,
 you need to set up a Certificate Manager. We use a free, open source, automated, and Kubernetes-native
@@ -39,4 +38,4 @@ be able to replicate your deployment no matter the environment. We use grafana c
 tier and their baseline offering is open source. Another great option, especially for the enterprise, is DataDog.
 Note that it is called Observability as it is more than just monitoring, it is a collection of telemetry configurations.
 
-[Observability Setup](./observability/README.md)
+[Observability Setup](grafana/README.md)

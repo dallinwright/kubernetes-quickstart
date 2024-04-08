@@ -3,7 +3,7 @@ helm repo update
 
 **Set the current namespace in your config context**
 ```bash
-kubectl config set-context --current --namespace=observability
+kubectl config set-context --current --namespace=grafana
 ```
 
 ```bash
