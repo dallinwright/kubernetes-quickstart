@@ -11,3 +11,7 @@ helm upgrade --install istio-base istio/base -n istio-system -f istio/values.yam
 helm upgrade --install istiod istio/istiod -n istio-system --wait
 
 kubectl label namespace default istio-injection=enabled --overwrite
+
+# Install the gateway for knative
+kubectl create namespace istio-ingress
+helm upgrade --install istio-ingress istio/gateway -n istio-ingress --wait
