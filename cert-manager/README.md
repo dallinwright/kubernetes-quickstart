@@ -25,6 +25,6 @@ helm upgrade --install \
     --create-namespace \
     --version v1.14.4 \
     --set installCRDs=true \
-    -f values.yaml \
+    -f cert-manager/values.yaml \
     cert-manager jetstack/cert-manager
 ```

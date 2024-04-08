@@ -8,10 +8,6 @@ kubectl create namespace linkerd; \
 kubectl config set-context --current --namespace=linkerd
 ```
 
-Now since we want interpod mTLS we need to generate certificates for the control plane.
-
-Follow the instructions here: [Linkerd Certificates](https://linkerd.io/2/tasks/generate-certificates/)
-
 Generate the Root CA
 ```bash
 step certificate create root.linkerd.cluster.local ca.crt ca.key \
@@ -36,8 +32,8 @@ helm upgrade --install linkerd-crds linkerd/linkerd-crds \
 
 Create the cert-manager resources required to automatically rotate the Linkerd intermediate CA
 ```bash
-kubectl apply -f issuer.yaml && \
-kubectl apply -f certificate.yaml
+kubectl apply -f linkerd/issuer.yaml && \
+kubectl apply -f linkerd/certificate.yaml
 ```
 
 Validate the newly created cert-manager intermediate CA
@@ -49,6 +45,12 @@ kubectl get secret linkerd-identity-issuer -o yaml -n linkerd
 helm upgrade --install linkerd-control-plane \
     -n linkerd \
     --set-file identityTrustAnchorsPEM=ca.crt \
-    -f values.yaml \
+    -f linkerd/values.yaml \
     linkerd/linkerd-control-plane
 ```
+
+
+kubectl -n emissary get deploy emissary-ingress -o yaml | \
+linkerd inject \
+--skip-inbound-ports 80,443 - | \
+kubectl apply -f -
