@@ -1,25 +1,12 @@
-# Cluster Certificate Management
+#!/usr/bin/env bash
 
-**Add helm repo for cert-manager**
-
-```bash
+# Install cert-manager
 helm repo add jetstack https://charts.jetstack.io --force-update
-```
-
-**Update helm repo**
-
-```bash
 helm repo update
-```
 
-**Install cert-manager via helm**
-
-```bash
-kubectl create namespace cert-manager; \
+kubectl create namespace cert-manager
 kubectl config set-context --current --namespace=cert-manager
-```
 
-```bash
 helm upgrade --install \
     --namespace cert-manager \
     --create-namespace \
@@ -27,4 +14,4 @@ helm upgrade --install \
     --set installCRDs=true \
     -f cert-manager/values.yaml \
     cert-manager jetstack/cert-manager
-```
+

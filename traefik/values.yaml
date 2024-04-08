@@ -1,0 +1,24 @@
+service:
+  enabled: true
+  single: true
+  type: LoadBalancer
+
+additionalArguments:
+- "--api.insecure=true"
+
+#ingressRoute:
+#  dashboard:
+#    enabled: false
+#    # Custom match rule with host domain
+#    matchRule: Host(`localhost`)
+#    entryPoints: ["web"]
+#
+#ports:
+#  traefik:
+#    expose:
+#      default: true
+
+deployment:
+  dnsPolicy: ClusterFirstWithHostNet
+
+hostNetwork: true

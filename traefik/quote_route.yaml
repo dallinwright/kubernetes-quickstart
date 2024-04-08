@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: quote
+  namespace: services
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`localhost`)
+    services:
+    - kind: Service
+      name: quote
+      namespace: services
+      port: 80

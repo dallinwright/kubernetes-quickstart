@@ -19,6 +19,10 @@ All these tools will provide you the baseline required to interact with your clu
 
 ## Steps
 
+- Install cert-manager
+- Install istio
+- Install traefik
+- Install knative
 
 For access into your cluster from outside, for example to call an API for your service, you need to set up an Ingress
 Controller.
