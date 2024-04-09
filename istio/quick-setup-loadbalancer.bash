@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
-bash quick-setup-base.bash
-
+# Setup the istio ingress gateway
 kubectl create namespace istio-ingress
 kubectl config set-context --current --namespace=istio-ingress
-helm install istio-ingressgateway istio/gateway -n istio-ingress
-
-kubectl apply -f https://app.getambassador.io/yaml/v2-docs/latest/quickstart/qotm.yaml
+helm upgrade --install istio-ingressgateway istio/gateway -n istio-ingress --set service.type=LoadBalancer
 
 kubectl apply -f istio/gateway.yaml
 kubectl apply -f istio/virtual_service.yaml

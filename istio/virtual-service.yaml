@@ -7,7 +7,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - http-gateway
+  - istio-ingress/http-gateway
   http:
   - match:
     - uri:
@@ -16,4 +16,4 @@ spec:
     - destination:
         port:
           number: 80
-        host: quote
+        host: quote.services.svc.cluster.local

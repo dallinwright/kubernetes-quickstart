@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-INGRESS_NS=istio-ingress
-INGRESS_NAME=istio-ingressgateway
+# Setup the istio ingress gateway
+kubectl create namespace istio-ingress
+kubectl config set-context --current --namespace=istio-ingress
+helm upgrade --install istio-ingressgateway istio/gateway -n istio-ingress --set service.type=NodePort
 
-export INGRESS_PORT=$(kubectl -n "${INGRESS_NS}" get service "${INGRESS_NAME}" -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
-export SECURE_INGRESS_PORT=$(kubectl -n "${INGRESS_NS}" get service "${INGRESS_NAME}" -o jsonpath='{.spec.ports[?(@.name=="https")].nodePort}')
-export TCP_INGRESS_PORT=$(kubectl -n "${INGRESS_NS}" get service "${INGRESS_NAME}" -o jsonpath='{.spec.ports[?(@.name=="tcp")].nodePort}')
+kubectl apply -f istio/gateway.yaml
+kubectl apply -f istio/virtual_service.yaml
 
-echo "INGRESS_PORT=${INGRESS_PORT}"
-echo "SECURE_INGRESS_PORT=${SECURE_INGRESS_PORT}"
-echo "TCP_INGRESS_PORT=${TCP_INGRESS_PORT}"
+kubectl describe gateway -n istio-ingress && kubectl get virtualservice -n istio-ingress

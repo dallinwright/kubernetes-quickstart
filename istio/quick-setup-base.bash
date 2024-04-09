@@ -13,3 +13,10 @@ helm upgrade --install istiod istio/istiod -n istio-system --wait
 helm status istiod -n istio-system
 kubectl get deployments -n istio-system --output wide
 
+# Service setup
+kubectl create namespace services
+kubectl config set-context --current --namespace=services
+kubectl label namespace services istio-injection=enabled --overwrite
+
+kubectl apply -f https://app.getambassador.io/yaml/v2-docs/latest/quickstart/qotm.yaml
+
