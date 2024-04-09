@@ -15,3 +15,13 @@ spec:
       protocol: HTTP
     hosts:
     - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+ name: http-gateway
+spec:
+ host: "*" # This is a catch-all rule for the gateway
+ trafficPolicy:
+   tls:
+     mode: DISABLE

@@ -16,7 +16,6 @@ kubectl get deployments -n istio-system --output wide
 # Install the gateway for knative
 kubectl create namespace istio-ingress
 kubectl config set-context --current --namespace=istio-ingress
-kubectl label namespace istio-ingress istio-injection=enabled --overwrite
 helm install istio-ingressgateway istio/gateway -n istio-ingress
 
 kubectl create namespace services
@@ -27,3 +26,5 @@ kubectl apply -f https://app.getambassador.io/yaml/v2-docs/latest/quickstart/qot
 
 kubectl apply -f istio/gateway.yaml
 kubectl apply -f istio/virtual_service.yaml
+
+kubectl describe gateway -n istio-ingress && kubectl get virtualservice -n istio-ingress
