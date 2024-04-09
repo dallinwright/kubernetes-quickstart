@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-#kubectl delete namespace services
+bash quick-setup-base.bash
+
+kubectl create namespace istio-ingress
 kubectl config set-context --current --namespace=istio-ingress
-kubectl label namespace services istio-injection=enabled --overwrite
+helm install istio-ingressgateway istio/gateway -n istio-ingress
 
 kubectl apply -f https://app.getambassador.io/yaml/v2-docs/latest/quickstart/qotm.yaml
 
