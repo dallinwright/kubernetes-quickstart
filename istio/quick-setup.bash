@@ -7,11 +7,23 @@ helm repo update
 kubectl create namespace istio-system
 kubectl config set-context --current --namespace=istio-system
 
-helm upgrade --install istio-base istio/base -n istio-system -f istio/values.yaml
+helm upgrade --install istio-base istio/base -n istio-system --set defaultRevision=default
 helm upgrade --install istiod istio/istiod -n istio-system --wait
 
-kubectl label namespace default istio-injection=enabled --overwrite
+helm status istiod -n istio-system
+kubectl get deployments -n istio-system --output wide
 
 # Install the gateway for knative
 kubectl create namespace istio-ingress
-helm upgrade --install istio-ingress istio/gateway -n istio-ingress --wait
+kubectl config set-context --current --namespace=istio-ingress
+kubectl label namespace istio-ingress istio-injection=enabled --overwrite
+helm install istio-ingressgateway istio/gateway -n istio-ingress
+
+kubectl create namespace services
+kubectl config set-context --current --namespace=services
+kubectl label namespace services istio-injection=enabled --overwrite
+
+kubectl apply -f https://app.getambassador.io/yaml/v2-docs/latest/quickstart/qotm.yaml -n services
+
+kubectl apply -f istio/gateway.yaml
+kubectl apply -f istio/virtual_service.yaml

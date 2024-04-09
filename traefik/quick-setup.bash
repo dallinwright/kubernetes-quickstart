@@ -11,11 +11,4 @@ helm upgrade --install --namespace=traefik \
 -f traefik/values.yaml \
 traefik traefik/traefik
 
-kubectl create namespace services
-kubectl config set-context --current --namespace=services
-
-kubectl label namespace services istio-injection=enabled --overwrite
-
-kubectl apply -f https://app.getambassador.io/yaml/v2-docs/latest/quickstart/qotm.yaml
-
 kubectl apply -f traefik/quote_route.yaml
