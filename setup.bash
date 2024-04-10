@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Install cert-manager
-#bash cert-manager/setup.bash
+bash cert-manager/setup.bash
 
 # Install istio
 bash istio/setup-base.bash
@@ -11,8 +11,8 @@ bash istio/setup-base.bash
 bash istio/setup-loadbalancer.bash
 
 ## Install development prometheus basic stack
-# bash prometheus/setup.bash
-#
+bash prometheus/setup.bash
+
 ## Install kiali, the istio service mesh visualization
 # bash kiali/setup.bash
 
@@ -20,5 +20,5 @@ bash istio/setup-loadbalancer.bash
 bash knative/setup.bash
 
 # Demo setup to validate knative config
-# bash knative/demos/serving/setup.bash
-bash istio/demo/setup.bash
+bash knative/demos/serving/setup.bash
+#bash istio/demo/setup.bash
