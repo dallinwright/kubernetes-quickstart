@@ -1,11 +1,28 @@
 #!/usr/bin/env bash
 
-docker build build -t "dallinpm/hello-world" --push .
+cd knative/demos/serving/hello-world || exit
 
-kubectl apply -f knative/hello-world.yaml
+# Check if Docker is running
+if ! docker info >/dev/null 2>&1; then
+    echo "Docker does not seem to be running, start Docker before running this script."
+    exit 1
+fi
 
-kubectl get ksvc hello-world
-kubectl get svc istio-ingressgateway -n istio-ingress
+# Check if the builder "container" exists
+if ! docker buildx ls | grep -q 'container'; then
+    # Create the builder
+    docker buildx create --name container --driver docker-container --use
+else
+    # Use the existing builder
+    docker buildx use container
+fi
 
-# shellcheck disable=SC2046
-curl $(kn service describe hello-world -o url)
+docker buildx build --platform linux/amd64,linux/arm64 --builder=container -t "dallinpm/hello-world" --push .
+
+#kubectl apply -f knative/demos/serving/knative-service.yaml
+#
+#kubectl get ksvc hello-world
+#kubectl get svc istio-ingressgateway -n istio-ingress
+#
+## shellcheck disable=SC2046
+#curl $(kn service describe hello-world -o url)

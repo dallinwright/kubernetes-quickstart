@@ -19,5 +19,6 @@ kubectl apply -f https://github.com/knative/net-istio/releases/download/knative-
 kubectl apply -f knative/peering.yaml
 
 # Our services namespace
+kubectl create namespace services
 kubectl config set-context --current --namespace=services
 kubectl label namespace services istio-injection=enabled --overwrite

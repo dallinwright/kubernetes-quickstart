@@ -6,4 +6,4 @@ kubectl config set-context --current --namespace=services
 kubectl label namespace services istio-injection=enabled --overwrite
 
 kubectl apply -f https://app.getambassador.io/yaml/v2-docs/latest/quickstart/qotm.yaml
-kubectl apply -f istio/demo/quote-virtual-service.yaml
+kubectl apply -f istio/demo/virtual-service.yaml

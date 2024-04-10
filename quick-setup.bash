@@ -18,3 +18,9 @@ bash prometheus/quick-setup.bash
 
 # Install kiali, the istio service mesh visualization
 bash kiali/quick-setup.bash
+
+# Setup knative
+bash knative/quick-setup.bash
+
+# Demo setup to validate knative config
+bash knative/demos/serving/setup.bash
