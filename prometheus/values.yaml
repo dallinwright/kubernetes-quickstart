@@ -1,0 +1,23 @@
+grafana:
+  ingress:
+    ## If true, Grafana Ingress will be created
+    ##
+    enabled: true
+
+    ## Hostnames.
+    ## Must be provided if Ingress is enable.
+    ##
+    hosts:
+      - "localhost"
+
+    ## Path for grafana ingress
+    path: /grafana
+
+  grafana.ini:
+    security:
+      cookie_secure: false
+    server:
+      domain: "localhost"
+      protocol: http
+      root_url: "%(protocol)s://%(domain)s:%(http_port)s/grafana/"
+      serve_from_sub_path: true

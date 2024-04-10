@@ -12,19 +12,3 @@ helm upgrade --install istiod istio/istiod -n istio-system --wait
 
 helm status istiod -n istio-system
 kubectl get deployments -n istio-system --output wide
-
-helm upgrade --install \
-  --namespace istio-system \
-  --set auth.strategy="anonymous" \
-  --repo https://kiali.org/helm-charts \
-  kiali-server \
-  kiali-server
-
-kubectl apply -f istio/kiali-virtual-service.yaml
-
-# Service setup
-kubectl create namespace services
-kubectl config set-context --current --namespace=services
-kubectl label namespace services istio-injection=enabled --overwrite
-
-kubectl apply -f https://app.getambassador.io/yaml/v2-docs/latest/quickstart/qotm.yaml

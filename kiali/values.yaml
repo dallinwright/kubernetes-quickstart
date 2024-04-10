@@ -1,0 +1,8 @@
+spec:
+  external_services:
+    prometheus:
+      # Prometheus service name is "metrics" and is in the "telemetry" namespace
+      url: "http://prometheus-operated.telemetry:9090/"
+
+auth:
+  strategy: anonymous
