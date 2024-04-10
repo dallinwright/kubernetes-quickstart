@@ -20,6 +20,11 @@ fi
 docker buildx build --platform linux/amd64,linux/arm64 --builder=container -t "dallinpm/hello-world:latest" --push .
 
 cd ../../../.. || exit
+# Our services namespace
+kubectl create namespace services
+kubectl config set-context --current --namespace=services
+kubectl label namespace services istio-injection=enabled --overwrite
+
 kubectl apply -f knative/demos/serving/knative-service.yaml
 
 kubectl get ksvc hello-world

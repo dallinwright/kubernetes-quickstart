@@ -9,13 +9,6 @@ app = Flask(__name__)
 def hello_world():
     target = os.environ.get('TARGET', 'World')
 
-    headers = {
-        'ce-id': '1234567890',
-        'ce-source': '/mycontext',
-        'ce-specversion': '1.0',
-        'ce-type': 'com.example.someevent'
-    }
-
     return 'Hello {}!\n'.format(target)
 
 

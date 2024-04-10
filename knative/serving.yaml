@@ -8,3 +8,7 @@ kind: KnativeServing
 metadata:
   name: knative-serving
   namespace: knative-serving
+spec:
+  config:
+    istio:
+      local-gateway.istio-ingress.knative-local-gateway: "knative-local-gateway.istio-ingress.svc.cluster.local"
