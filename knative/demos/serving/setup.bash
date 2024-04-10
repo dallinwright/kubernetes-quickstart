@@ -33,3 +33,4 @@ kubectl get svc istio-ingressgateway -n istio-ingress
 
 # shellcheck disable=SC2046
 #curl $(kn service describe hello-world -o url)
+kubectl patch configmap config-istio -n knative-serving --type json -p '[{"op": "remove", "path": "/data/local-gateway.istio-ingress.knative-local-gateway"}]'

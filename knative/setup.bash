@@ -17,13 +17,12 @@ kubectl wait --for=condition=Established --timeout=60s crd/peerauthentications.s
 echo "Setting up knative-serving"
 kubectl apply -f knative/serving.yaml
 
+sleep 10
+
 echo "Setting up istio network plugin CRDs"
 kubectl apply -f https://github.com/knative/net-istio/releases/download/knative-v1.13.1/net-istio.yaml
 
-sleep 30
-
-kubectl wait --for=condition=Established --timeout=60s crd/certificates.networking.internal.knative.dev
-kubectl wait --for=condition=Established --timeout=60s crd/configurations.serving.knative.dev
+sleep 10
 
 echo "Setting up configmap for domain mapping"
 kubectl patch configmap/config-domain \
@@ -31,15 +30,14 @@ kubectl patch configmap/config-domain \
   --type merge \
   --patch '{"data":{"example.com":""}}'
 
-echo "Setting up knative configmap for istio gateway"
-# Fetch the current configmap and save it to a file
-kubectl get configmap config-istio -n knative-serving -o json > config-istio.json
+sleep 15
 
-# Use jq to replace the specific key-value pair in the data field
-jq '.data["gateway.knative-serving.knative-ingress-gateway"]="istio-ingressgateway.istio-ingress.svc.cluster.local"' config-istio.json > config-istio-updated.json
+# Delete the specific key from the configmap
+kubectl patch configmap config-istio -n knative-serving --type json -p '[{"op": "remove", "path": "/data/local-gateway.istio-ingress.knative-local-gateway"}]'
 
-# Apply the updated configmap
-kubectl apply -f config-istio-updated.json
+# Add the new key-value pair to the configmap
+kubectl patch configmap config-istio -n knative-serving --type merge -p '{"data":{"gateway.knative-serving.knative-ingress-gateway":"istio-ingressgateway.istio-ingress.svc.cluster.local"}}'
+kubectl get configmap config-istio -n knative-serving -o yaml
 
 # Peering for Istio + Cert Manager for Knative, still TODO
 echo "Setting up peering for Istio + Cert Manager for Knative"

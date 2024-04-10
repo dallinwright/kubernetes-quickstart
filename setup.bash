@@ -20,5 +20,7 @@ bash istio/setup-loadbalancer.bash
 bash knative/setup.bash
 
 # Demo setup to validate knative config
+sleep 15
+
 bash knative/demos/serving/setup.bash
 #bash istio/demo/setup.bash
