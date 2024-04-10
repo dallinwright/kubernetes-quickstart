@@ -7,6 +7,8 @@ spec:
     spec:
       containers:
         - image: docker.io/dallinpm/hello-world
+          ports:
+            - containerPort: 8080
           env:
             - name: TARGET
               value: "Python Sample v1"
@@ -18,11 +20,15 @@ metadata:
   namespace: istio-ingress
 spec:
   hosts:
-    - hello-world.example.com
+  - "*"
   gateways:
-    - knative-gateway # Replace with your actual gateway name
+  - istio-ingress/http-gateway
   http:
-    - route:
-        - destination:
-            host: hello-world.services.svc.cluster.local
-            weight: 100
+  - match:
+    - uri:
+        prefix: "/hello-world"
+    route:
+    - destination:
+        port:
+          number: 8080
+        host: hello-world.services.svc.cluster.local

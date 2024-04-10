@@ -4,11 +4,12 @@ FROM python:3.7-slim
 
 # Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
+ENV PORT 8080
 
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
-COPY . ./
+COPY app.py ./
 
 # Install production dependencies.
 RUN pip install Flask gunicorn

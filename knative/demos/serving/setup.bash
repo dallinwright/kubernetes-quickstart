@@ -17,12 +17,13 @@ else
     docker buildx use container
 fi
 
-docker buildx build --platform linux/amd64,linux/arm64 --builder=container -t "dallinpm/hello-world" --push .
+docker buildx build --platform linux/amd64,linux/arm64 --builder=container -t "dallinpm/hello-world:latest" --push .
 
-#kubectl apply -f knative/demos/serving/knative-service.yaml
-#
-#kubectl get ksvc hello-world
-#kubectl get svc istio-ingressgateway -n istio-ingress
-#
-## shellcheck disable=SC2046
+cd ../../../.. || exit
+kubectl apply -f knative/demos/serving/knative-service.yaml
+
+kubectl get ksvc hello-world
+kubectl get svc istio-ingressgateway -n istio-ingress
+
+# shellcheck disable=SC2046
 #curl $(kn service describe hello-world -o url)
