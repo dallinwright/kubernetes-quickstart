@@ -11,7 +11,7 @@ bash istio/setup-base.bash
 bash istio/setup-loadbalancer.bash
 
 ## Install development prometheus basic stack
-bash prometheus/setup.bash
+#bash prometheus/setup.bash
 
 ## Install kiali, the istio service mesh visualization
 # bash kiali/setup.bash
