@@ -6,30 +6,13 @@ metadata:
 spec:
   template:
     spec:
+      imagePullSecrets:
+        - name: registry-credentials
       containers:
-        - image: docker.io/dallinpm/hello-world
+        - image: ghcr.io/dallinwright/kubernetes-quickstart
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
             - name: TARGET
               value: "Python Sample v1"
-#---
-#apiVersion: networking.istio.io/v1alpha3
-#kind: VirtualService
-#metadata:
-#  name: hello-world
-#  namespace: services
-#spec:
-#  hosts:
-#  - "*"
-#  gateways:
-#  - istio-ingress/http-gateway
-#  http:
-#  - match:
-#    - uri:
-#        prefix: "/hello-world"
-#    route:
-#    - destination:
-#        port:
-#          number: 80
-#        host: hello-world.services.svc.cluster.local

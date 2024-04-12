@@ -11,4 +11,6 @@ metadata:
 spec:
   config:
     istio:
-      local-gateway.istio-ingress.knative-local-gateway: "knative-local-gateway.istio-ingress.svc.cluster.local"
+      gateway.knative-serving.knative-ingress-gateway: "istio-ingressgateway.istio-ingress.svc.cluster.local"
+    domain:
+      example.com: ""
