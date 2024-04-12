@@ -4,8 +4,6 @@ metadata:
   name: http-gateway
   namespace: istio-ingress
 spec:
-  # The selector matches the ingress gateway pod labels.
-  # If you installed Istio using Helm following the standard documentation, this would be "istio=ingress"
   selector:
     istio: ingressgateway
   servers:
@@ -15,13 +13,13 @@ spec:
       protocol: HTTP
     hosts:
     - "*"
-#---
-#apiVersion: networking.istio.io/v1alpha3
-#kind: DestinationRule
-#metadata:
-# name: http-gateway
-#spec:
-# host: "*" # This is a catch-all rule for the gateway
-# trafficPolicy:
-#   tls:
-#     mode: DISABLE
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+ name: http-gateway
+spec:
+ host: "*"
+ trafficPolicy:
+   tls:
+     mode: DISABLE

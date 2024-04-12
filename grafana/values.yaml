@@ -1,12 +1,12 @@
 cluster:
-  name: Dallin Wright's Cluster
+  name: Dallin Wright's Development Cluster
 
 externalServices:
   prometheus:
     hostKey: prometheus_host
     basicAuth:
       usernameKey: prometheus_username
-      passwordKey: password
+      passwordKey: grafana_password
     secret:
       create: false
       name: grafana-agent-credentials
@@ -15,7 +15,7 @@ externalServices:
     hostKey: loki_host
     basicAuth:
       usernameKey: loki_username
-      passwordKey: password
+      passwordKey: grafana_password
     secret:
       create: false
       name: grafana-agent-credentials
@@ -24,15 +24,16 @@ externalServices:
     hostKey: tempo_host
     basicAuth:
       usernameKey: tempo_username
-      passwordKey: password
+      passwordKey: grafana_password
     secret:
       create: false
       name: grafana-agent-credentials
 
 metrics:
   enabled: true
+  scrapeInterval: 15s
   cost:
-    enabled: true
+    enabled: false
   node-exporter:
     enabled: true
 
@@ -46,16 +47,14 @@ logs:
 traces:
   enabled: true
 
-opencost:
-  enabled: false
-
 receivers:
   grpc:
     enabled: true
   http:
     enabled: true
-  zipkin:
-    enabled: true
+
+opencost:
+  enabled: false
 
 kube-state-metrics:
   enabled: true
